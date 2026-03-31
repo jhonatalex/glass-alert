@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlassAlert Animation ✨ Premium Glassmorphism Modals</title>
+    <title>Alert Glassmorphism Animations ✨ Premium Modals</title>
     <meta name="description" content="A beautiful glassmorphism alert and modal library with GSAP animations for React. Premium liquid glass style popups.">
     
     <!-- Fonts -->
@@ -132,13 +132,14 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             margin-bottom: 20px;
             background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -2px;
+            line-height: 1.1;
         }
 
         .hero p {
@@ -163,8 +164,9 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 50px;
+            letter-spacing: -1px;
         }
 
         /* --- Demo Grid --- */
@@ -215,19 +217,28 @@
             display: flex;
             gap: 20px;
             padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: 0.3s;
+        }
+        
+        .feature-item:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+            background: rgba(255,255,255,0.04);
         }
 
         .feature-icon {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             background: rgba(99, 102, 241, 0.1);
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
             flex-shrink: 0;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
 
         /* --- Footer --- */
@@ -245,7 +256,7 @@
 
         /* --- Utils --- */
         .btn {
-            padding: 14px 28px;
+            padding: 14px 32px;
             border-radius: 14px;
             font-family: inherit;
             font-weight: 600;
@@ -260,12 +271,12 @@
         .btn-primary {
             background: var(--primary);
             color: white;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
         .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5);
         }
 
         .btn-secondary {
@@ -282,13 +293,14 @@
         pre[class*="language-"] {
             border-radius: 16px !important;
             padding: 20px !important;
-            margin: 20px 0 !important;
+            margin: 24px 0 !important;
             background: #0a0a1a !important;
             border: 1px solid rgba(255,255,255,0.05) !important;
+            font-size: 0.9rem !important;
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 3rem; }
             .hero p { font-size: 1.1rem; }
             .cta-group { flex-direction: column; }
         }
@@ -315,7 +327,7 @@
 
     <div class="hero">
         <img src="assets/logo.png" alt="GlassAlert Logo" class="hero-logo">
-        <h1>Glassmorphism Animations</h1>
+        <h1>Alert Glassmorphism Animations</h1>
         <p>A premium alert library for React. Smooth, fluid modals with liquid glass effects and GSAP-powered transitions. Elevate your UI with the transparency it deserves.</p>
         
         <div class="cta-group">
@@ -355,27 +367,45 @@
     </section>
 
     <section id="install">
-        <h2 class="section-title">Installation</h2>
-        <div style="max-width: 600px; margin: 0 auto;">
+        <h2 class="section-title">Installation & Usage</h2>
+        <div style="max-width: 800px; margin: 0 auto;">
             <p>Get started with a single command:</p>
-            <pre><code class="language-bash">npm install glass-alert-animation gsap @gsap/react</code></pre>
+            <pre><code class="language-bash">npm install glass-alert-animation gsap lottie-react</code></pre>
             
-            <p style="margin-top: 30px;">Import and wrap your application:</p>
-            <pre><code class="language-jsx">import { GlassAlertProvider } from 'glass-alert-animation';
-import 'glass-alert-animation/styles';
+            <p style="margin-top: 40px; font-weight: 600;">1. Success Alert</p>
+            <pre><code class="language-jsx">fire({
+  title: 'Success!',
+  text: 'The operation was completed.',
+  icon: 'success',
+  animation: 'elastic'
+});</code></pre>
 
-function App() {
-  return (
-    <GlassAlertProvider>
-      <MainApp />
-    </GlassAlertProvider>
-  );
+            <p style="margin-top: 40px; font-weight: 600;">2. Toast Notification</p>
+            <pre><code class="language-jsx">fire({
+  title: 'New Message',
+  toast: true,
+  position: 'top-end',
+  timer: 3000,
+  timerProgressBar: true
+});</code></pre>
+
+            <p style="margin-top: 40px; font-weight: 600;">3. Confirm Dialog</p>
+            <pre><code class="language-jsx">const result = await fire({
+  title: 'Are you sure?',
+  text: 'You cannot undo this!',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it'
+});
+
+if (result.isConfirmed) {
+  // Logic here
 }</code></pre>
         </div>
     </section>
 
     <section id="features">
-        <h2 class="section-title">Why GlassAlert?</h2>
+        <h2 class="section-title">Features</h2>
         <div class="features-grid">
             <div class="feature-item">
                 <div class="feature-icon">💎</div>
@@ -392,17 +422,31 @@ function App() {
                 </div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon">🧩</div>
+                <div class="feature-icon">✨</div>
                 <div>
-                    <h3>React Native Feel</h3>
-                    <p>Optimized for touch and web, providing a native-like feedback loop for users.</p>
+                    <h3>Lottie Support</h3>
+                    <p>Beautiful, fluid animated icons for every alert type powered by Lottie.</p>
                 </div>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">🎨</div>
                 <div>
-                    <h3>Liquid Backgrounds</h3>
-                    <p>The background comes alive when the modal opens, creating focus through movement.</p>
+                    <h3>Customizable</h3>
+                    <p>Control blur intensity, colors, backgrounds, and more to match your brand exactly.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🧩</div>
+                <div>
+                    <h3>React Ready</h3>
+                    <p>Easy-to-use hooks and providers designed specifically for the React ecosystem.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📱</div>
+                <div>
+                    <h3>Fully Responsive</h3>
+                    <p>Optimized for mobile, tablet, and desktop. Looks stunning on any screen size.</p>
                 </div>
             </div>
         </div>
@@ -467,15 +511,12 @@ function App() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
     
-    <!-- Lottie (if needed for the mocked modal) -->
+    <!-- Lottie -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
     <script>
         // Simple Mock of GlassAlert for local demo without needing full React bundle
         function triggerDemo(type) {
-            // Since we can't easily inject the actual React component here without a build step,
-            // we'll build the DOM structure that matches our library's CSS.
-            
             const overlay = document.createElement('div');
             overlay.className = 'ga-overlay ga-visible';
             if (type === 'toast') overlay.classList.add('ga-toast', 'ga-pos-top-end');
@@ -492,29 +533,34 @@ function App() {
             let text = "Operation completed successfully.";
             let iconColor = "#22c55e"; // green
             let showCancel = false;
+            let currentLottie = 'success';
 
             if (type === 'error') {
                 title = "Error!";
                 text = "Something went wrong. Please try again.";
                 iconColor = "#ef4444";
+                currentLottie = 'error';
             } else if (type === 'toast') {
                 title = "Notification";
                 text = "Check out our new documentation!";
+                currentLottie = 'success';
             } else if (type === 'custom') {
                 title = "Ultra Blur";
                 text = "This one uses 40px blur intensity.";
                 popup.style.setProperty('--ga-glass-blur', '40px');
                 popup.style.setProperty('--ga-glass-opacity', '0.25');
-            } else if (type === 'question') {
-                title = "Are you sure?";
-                text = "You won't be able to revert this!";
+                currentLottie = 'info';
+                iconColor = "#3b82f6";
+            } else if (type === 'question' || type === 'liquid') {
+                title = type === 'liquid' ? "Liquid Animation" : "Are you sure?";
+                text = "Everything looks better with glassmorphism.";
                 showCancel = true;
+                currentLottie = 'question';
+                iconColor = "#8b5cf6";
             }
 
             popup.innerHTML = `
-                <div class="ga-icon-wrapper" style="color: ${iconColor}; font-size: 50px;">
-                    ${type === 'toast' ? '🔔' : (type === 'question' ? '❓' : (type === 'error' ? '❌' : '✅'))}
-                </div>
+                <div class="ga-icon-wrapper" id="lottie-container" style="color: ${iconColor};"></div>
                 <div class="ga-toast-body">
                     <h2 class="ga-title">${title}</h2>
                     <div class="ga-content"><p>${text}</p></div>
@@ -535,6 +581,15 @@ function App() {
             overlay.appendChild(popup);
             document.body.appendChild(overlay);
 
+            // Render Lottie
+            lottie.loadAnimation({
+                container: document.getElementById('lottie-container'),
+                renderer: 'svg',
+                loop: false,
+                autoplay: true,
+                path: `assets/lotties/${currentLottie}.json`
+            });
+
             // GSAP Entrance
             gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.3 });
             gsap.fromTo(popup, 
@@ -550,7 +605,7 @@ function App() {
             }
 
             if (type === 'toast') {
-                setTimeout(closeAlert, 3000);
+                setTimeout(closeAlert, 4000);
             }
         }
 
