@@ -132,7 +132,7 @@
         }
 
         .hero h1 {
-            font-size: 4.5rem;
+            font-size: 3.8rem; /* Reduced from 4.5rem */
             font-weight: 800;
             margin-bottom: 20px;
             background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
@@ -372,7 +372,48 @@
             <p>Get started with a single command:</p>
             <pre><code class="language-bash">npm install glass-alert-animation gsap lottie-react</code></pre>
             
-            <p style="margin-top: 40px; font-weight: 600;">1. Success Alert</p>
+            <h3 style="margin-top: 40px; color: var(--primary);">Quick Start</h3>
+            
+            <p style="margin-top: 20px; font-weight: 600;">1. Setup the Provider</p>
+            <p style="font-size: 0.9rem; color: var(--text-dim);">Wrap your application with the GlassAlertProvider and import the styles.</p>
+            <pre><code class="language-jsx">import { GlassAlertProvider } from 'glass-alert-animation';
+import 'glass-alert-animation/styles';
+
+function App() {
+  return (
+    <GlassAlertProvider>
+      <yourApp />
+    </GlassAlertProvider>
+  );
+}</code></pre>
+
+            <p style="margin-top: 40px; font-weight: 600;">2. Trigger an Alert</p>
+            <p style="font-size: 0.9rem; color: var(--text-dim);">Use the useGlassAlert hook to fire alerts anywhere in your components.</p>
+            <pre><code class="language-jsx">import { useGlassAlert } from 'glass-alert-animation';
+
+function MyComponent() {
+  const { fire } = useGlassAlert();
+
+  const handleAlert = async () => {
+    const result = await fire({
+      title: 'Success!',
+      text: 'GlassAlert is working perfectly.',
+      icon: 'success',
+      glassColor: '#6366f1',
+      animation: 'liquid'
+    });
+    
+    if (result.isConfirmed) {
+      console.log('User clicked OK');
+    }
+  };
+
+  return &lt;button onClick={handleAlert}&gt;Show Alert&lt;/button&gt;;
+}</code></pre>
+
+            <h3 style="margin-top: 60px; color: var(--primary);">More Examples</h3>
+
+            <p style="margin-top: 20px; font-weight: 600;">Basic Success Alert</p>
             <pre><code class="language-jsx">fire({
   title: 'Success!',
   text: 'The operation was completed.',
@@ -380,7 +421,7 @@
   animation: 'elastic'
 });</code></pre>
 
-            <p style="margin-top: 40px; font-weight: 600;">2. Toast Notification</p>
+            <p style="margin-top: 40px; font-weight: 600;">Toast Notification</p>
             <pre><code class="language-jsx">fire({
   title: 'New Message',
   toast: true,
@@ -389,7 +430,7 @@
   timerProgressBar: true
 });</code></pre>
 
-            <p style="margin-top: 40px; font-weight: 600;">3. Confirm Dialog</p>
+            <p style="margin-top: 40px; font-weight: 600;">Confirm Dialog</p>
             <pre><code class="language-jsx">const result = await fire({
   title: 'Are you sure?',
   text: 'You cannot undo this!',
@@ -543,7 +584,8 @@ if (result.isConfirmed) {
             } else if (type === 'toast') {
                 title = "Notification";
                 text = "Check out our new documentation!";
-                currentLottie = 'success';
+                currentLottie = 'bell'; // New bell lottie for toasts
+                iconColor = "#f59e0b";
             } else if (type === 'custom') {
                 title = "Ultra Blur";
                 text = "This one uses 40px blur intensity.";
