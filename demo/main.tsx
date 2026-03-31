@@ -1,0 +1,13 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { GlassAlertProvider } from '../src/react';
+import '../src/styles/glass-alert.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <GlassAlertProvider>
+      <App />
+    </GlassAlertProvider>
+  </React.StrictMode>
+);

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.tgz
+.env
+
+# Private planning files
+BasePlan.md
