@@ -39,11 +39,11 @@
     "toast",
     "liquid-glass"
   ],
-  "author": "",
+  "author": "jhonatalex",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/jhonatalex/glass-alert.git"
   },
   "peerDependencies": {
     "gsap": ">=3.12.0",
