@@ -1,95 +1,119 @@
 # GlassAlert Animation ✨
 
-A beautiful, premium glassmorphism alert and modal library for React with smooth GSAP animations. 
+<p align="center">
+  <img src="docs/assets/logo.png" alt="GlassAlert Logo" width="200" />
+</p>
 
-Inspired by SweetAlert2 but with a focus on modern liquid glass aesthetics, animated backgrounds, and high-performance GSAP transitions.
+<p align="center">
+  <a href="https://www.npmjs.com/package/glass-alert-animation">
+    <img src="https://img.shields.io/npm/v/glass-alert-animation?style=flat-square&color=6366f1" alt="npm version" />
+  </a>
+  <a href="https://www.npmjs.com/package/glass-alert-animation">
+    <img src="https://img.shields.io/npm/dw/glass-alert-animation?style=flat-square&color=8b5cf6" alt="npm downloads" />
+  </a>
+  <a href="https://github.com/jhonatalex/glass-alert/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/jhonatalex/glass-alert?style=flat-square&color=6366f1" alt="license" />
+  </a>
+  <a href="https://github.com/jhonatalex/glass-alert">
+    <img src="https://img.shields.io/github/stars/jhonatalex/glass-alert?style=flat-square&color=8b5cf6" alt="github stars" />
+  </a>
+</p>
 
-![Glassmorphism Demo](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200&h=600)
+---
 
-## Features
-- 💎 **Premium Glassmorphism**: High-quality blur, transparency, and luminous border effects.
-- 🚀 **GSAP Powered**: Smooth, hardware-accelerated animations for entrances, exits, and icons.
-- 🎨 **Animated Backgrounds**: Moving liquid gradients behind the alerts for a "live" feel.
-- 📦 **NPM Ready**: Easy to install and use with React (Vue/Angular support coming soon).
-- 📱 **Responsive**: Mobile-first design that looks great on any screen.
-- 🛠️ **Customizable**: Control blur intensity, glass opacity, colors, animations, and more.
+**GlassAlert** is a premium, high-performance glassmorphism alert and modal library for React, powered by GSAP. Designed to be a high-end alternative to SweetAlert2, it focuses on modern "liquid glass" aesthetics, fluid animations, and interactive backgrounds.
 
-## Installation
+### [🌐 Visit Live Documentation & Demos](https://jhonatalex.github.io/glass-alert/)
+
+---
+
+## ✨ Features
+
+- 💎 **Premium Glassmorphism**: Stunning blur effects, translucent gradients, and luminous borders.
+- 🚀 **GSAP-Powered Animations**: Hardware-accelerated transitions that feel smooth and professional.
+- 🎨 **Dynamic Backgrounds**: Interactive, moving liquid gradient backgrounds for an "alive" feel.
+- 📦 **Framework Ready**: Built for React with a simple hook-based API.
+- 📱 **Mobile Optimized**: Fully responsive and lightweight.
+- 🛠️ **Extremely Customizable**: Adjust blur, opacity, colors, and animation styles with ease.
+- 🎭 **Lottie Support**: Built-in support for Lottie animations for success, error, and more.
+
+## 🚀 Installation
 
 ```bash
-npm install glass-alert-animation gsap @gsap/react
+npm install glass-alert-animation gsap lottie-react
 ```
 
-Note: `gsap` and `@gsap/react` are peer dependencies and must be installed in your project.
+> **Note:** `gsap` and `lottie-react` are required dependencies for the animations and icons.
 
-## Quick Start
+## 📖 Quick Start
 
-### 1. Wrap your app with the Provider
+### 1. Setup the Provider
 
-```jsx
+Wrap your application with the `GlassAlertProvider` and import the styles.
+
+```tsx
 import { GlassAlertProvider } from 'glass-alert-animation';
-import 'glass-alert-animation/styles'; // Don't forget the CSS!
+import 'glass-alert-animation/styles';
 
 function App() {
   return (
     <GlassAlertProvider>
-      <MainComponent />
+      <yourApp />
     </GlassAlertProvider>
   );
 }
 ```
 
-### 2. Use the hook to fire alerts
+### 2. Trigger an Alert
 
-```jsx
+Use the `useGlassAlert` hook to fire alerts anywhere in your components.
+
+```tsx
 import { useGlassAlert } from 'glass-alert-animation';
 
 function MyComponent() {
   const { fire } = useGlassAlert();
 
-  const handleClick = async () => {
+  const handleAlert = async () => {
     const result = await fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      animation: 'liquid', // options: elastic, bounce, slide, fade, liquid
-      glassBlur: 25,
-      glassOpacity: 0.15,
-      glassColor: '#6366f1'
+      title: 'Success!',
+      text: 'GlassAlert is working perfectly.',
+      icon: 'success',
+      glassColor: '#6366f1',
+      animation: 'liquid'
     });
-
+    
     if (result.isConfirmed) {
-      fire({
-        title: 'Deleted!',
-        icon: 'success',
-        timer: 2000
-      });
+      console.log('User clicked OK');
     }
   };
 
-  return <button onClick={handleClick}>Delete</button>;
+  return <button onClick={handleAlert}>Show Alert</button>;
 }
 ```
 
-## API Reference
+## ⚙️ Configuration Reference
 
-### GlassAlertOptions
-
-| Option | Type | Default | Description |
+| Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `title` | `string` | `''` | The title of the alert. |
-| `text` | `string` | `''` | The body text of the alert. |
-| `icon` | `string` | `undefined` | success, error, warning, info, question. |
-| `animation` | `string` | `'elastic'` | elastic, bounce, slide, fade, liquid. |
-| `glassBlur` | `number` | `20` | Intensity of the glass blur in px. |
-| `glassOpacity` | `number` | `0.12` | Opacity of the glass background (0-1). |
-| `glassColor` | `string` | `'#6366f1'` | Primary glass color. |
-| `animatedBackground` | `boolean` | `true` | Enable the moving gradient background. |
-| `timer` | `number` | `0` | Auto-close timer in ms. |
-| `toast` | `boolean` | `false` | Show as a toast notification. |
-| `position` | `string` | `'center'` | center, top, top-start, top-end, bottom, etc. |
+| `title` | `string` | `''` | Main title header. |
+| `text` | `string` | `''` | Body text content. |
+| `html` | `ReactNode` | `undefined` | Custom HTML content (overrides text). |
+| `icon` | `string` | `undefined` | `success`, `error`, `warning`, `info`, `question`. |
+| `animation` | `string` | `'elastic'` | `elastic`, `bounce`, `slide`, `fade`, `liquid`. |
+| `toast` | `boolean` | `false` | Enable toast notification mode. |
+| `timer` | `number` | `0` | Auto-dismiss timer in ms. |
+| `glassBlur` | `number` | `20` | Blur intensity for the glass effect (px). |
+| `glassOpacity` | `number` | `0.12` | Opacity of the background (0-1). |
+| `glassColor` | `string` | `'#6366f1'` | Primary accent color. |
+| `animatedBackground`| `boolean` | `true` | Enable the dynamic background gradient. |
 
-## License
-MIT © [Your Name/Github]
+---
+
+## 🤝 Contributing
+
+This project is open-source and we welcome all contributions! Feel free to open issues or submit pull requests.
+
+## 📄 License
+
+MIT © [jhonatalex](https://github.com/jhonatalex)

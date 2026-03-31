@@ -1,0 +1,521 @@
+/* ============================================================
+ * GlassAlert — Glassmorphism Style System
+ * Premium liquid glass UI with animated backgrounds
+ * ============================================================ */
+
+/* ─── Google Font Import ─────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ─── CSS Variables ──────────────────────────────────── */
+:root {
+  --ga-glass-blur: 20px;
+  --ga-glass-opacity: 0.12;
+  --ga-glass-color: 99, 102, 241;        /* indigo-500 RGB */
+  --ga-glass-color-secondary: 139, 92, 246; /* violet-500 RGB */
+  --ga-glass-border-opacity: 0.25;
+  --ga-backdrop-blur: 8px;
+  --ga-border-radius: 24px;
+  --ga-font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --ga-shadow-color: 0, 0, 0;
+  --ga-text-color: 255, 255, 255;
+  --ga-bg-speed: 8s;
+
+  /* Icon colors */
+  --ga-success: 34, 197, 94;
+  --ga-error: 239, 68, 68;
+  --ga-warning: 245, 158, 11;
+  --ga-info: 59, 130, 246;
+  --ga-question: 139, 92, 246;
+}
+
+/* ─── Google Font Import ─────────────────────────────── */
+
+/* ─── Backdrop / Overlay ─────────────────────────────── */
+.ga-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ga-overlay.ga-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ga-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(var(--ga-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--ga-backdrop-blur));
+}
+
+/* ─── Animated Background (behind glass popup) ───────── */
+.ga-animated-bg {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(var(--ga-glass-color), 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(var(--ga-glass-color-secondary), 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(var(--ga-glass-color), 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(var(--ga-glass-color-secondary), 0.08) 0%, transparent 40%);
+  background-size: 200% 200%;
+  animation: ga-bg-drift var(--ga-bg-speed) ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes ga-bg-drift {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(5%, -3%) rotate(1deg) scale(1.02);
+  }
+  50% {
+    transform: translate(-3%, 5%) rotate(-1deg) scale(1.01);
+  }
+  75% {
+    transform: translate(4%, 2%) rotate(0.5deg) scale(1.03);
+  }
+  100% {
+    transform: translate(-2%, -4%) rotate(-0.5deg) scale(1);
+  }
+}
+
+/* Floating orbs */
+.ga-backdrop::before,
+.ga-backdrop::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: ga-orb-float 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.ga-backdrop::before {
+  width: 300px;
+  height: 300px;
+  background: rgba(var(--ga-glass-color), 0.4);
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.ga-backdrop::after {
+  width: 250px;
+  height: 250px;
+  background: rgba(var(--ga-glass-color-secondary), 0.35);
+  bottom: 15%;
+  right: 15%;
+  animation-delay: -3s;
+}
+
+@keyframes ga-orb-float {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+  100% { transform: translate(15px, 10px) scale(1.05); }
+}
+
+/* ─── Position Variants ──────────────────────────────── */
+.ga-overlay.ga-pos-top { align-items: flex-start; padding-top: 40px; }
+.ga-overlay.ga-pos-top-start { align-items: flex-start; justify-content: flex-start; padding: 40px; }
+.ga-overlay.ga-pos-top-end { align-items: flex-start; justify-content: flex-end; padding: 40px; }
+.ga-overlay.ga-pos-bottom { align-items: flex-end; padding-bottom: 40px; }
+.ga-overlay.ga-pos-bottom-start { align-items: flex-end; justify-content: flex-start; padding: 40px; }
+.ga-overlay.ga-pos-bottom-end { align-items: flex-end; justify-content: flex-end; padding: 40px; }
+
+/* ─── Glass Popup ────────────────────────────────────── */
+.ga-popup {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  padding: 32px;
+  border-radius: var(--ga-border-radius);
+  font-family: var(--ga-font-family);
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+
+  /* ✨ GLASSMORPHISM CORE ✨ */
+  background: linear-gradient(
+    135deg,
+    rgba(var(--ga-glass-color), var(--ga-glass-opacity)) 0%,
+    rgba(var(--ga-glass-color-secondary), calc(var(--ga-glass-opacity) * 0.7)) 50%,
+    rgba(var(--ga-glass-color), calc(var(--ga-glass-opacity) * 0.5)) 100%
+  );
+  backdrop-filter: blur(var(--ga-glass-blur)) saturate(1.6);
+  -webkit-backdrop-filter: blur(var(--ga-glass-blur)) saturate(1.6);
+
+  /* Glass border — luminous edges */
+  border: 1px solid rgba(255, 255, 255, var(--ga-glass-border-opacity));
+
+  /* Depth shadow */
+  box-shadow:
+    0 8px 32px rgba(var(--ga-shadow-color), 0.3),
+    0 2px 8px rgba(var(--ga-shadow-color), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.ga-popup.ga-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Inner glass highlight (top light reflection) */
+.ga-popup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 100%
+  );
+  border-radius: var(--ga-border-radius) var(--ga-border-radius) 0 0;
+  pointer-events: none;
+}
+
+/* Animated inner glow */
+.ga-popup::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: var(--ga-border-radius);
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
+  );
+  background-size: 300% 300%;
+  animation: ga-shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes ga-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── Close Button ───────────────────────────────────── */
+.ga-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(var(--ga-text-color), 0.7);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ga-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(var(--ga-text-color), 1);
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* ─── Icon Container ─────────────────────────────────── */
+.ga-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.ga-icon-svg {
+  width: 80px;
+  height: 80px;
+}
+
+/* Icon type colors */
+.ga-icon-wrapper.ga-icon-type-success { color: rgb(var(--ga-success)); }
+.ga-icon-wrapper.ga-icon-type-error { color: rgb(var(--ga-error)); }
+.ga-icon-wrapper.ga-icon-type-warning { color: rgb(var(--ga-warning)); }
+.ga-icon-wrapper.ga-icon-type-info { color: rgb(var(--ga-info)); }
+.ga-icon-wrapper.ga-icon-type-question { color: rgb(var(--ga-question)); }
+
+/* ─── Title ──────────────────────────────────────────── */
+.ga-title {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(var(--ga-text-color), 0.95);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+/* ─── Content / Text ─────────────────────────────────── */
+.ga-content {
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(var(--ga-text-color), 0.7);
+  line-height: 1.6;
+}
+
+/* ─── Actions (Buttons Container) ────────────────────── */
+.ga-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.ga-actions.ga-reverse {
+  flex-direction: row-reverse;
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.ga-btn {
+  position: relative;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 14px;
+  font-family: var(--ga-font-family);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  letter-spacing: 0.01em;
+}
+
+/* Confirm button — glass gradient */
+.ga-btn-confirm {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--ga-glass-color), 0.7) 0%,
+    rgba(var(--ga-glass-color-secondary), 0.6) 100%
+  );
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 4px 16px rgba(var(--ga-glass-color), 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.ga-btn-confirm:hover {
+  box-shadow:
+    0 6px 24px rgba(var(--ga-glass-color), 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.ga-btn-confirm:active {
+  transform: scale(0.97);
+}
+
+/* Shimmer effect on confirm button */
+.ga-btn-confirm::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 65%
+  );
+  background-size: 300% 100%;
+  animation: ga-btn-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes ga-btn-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Cancel button — subtle glass */
+.ga-btn-cancel {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(var(--ga-text-color), 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.ga-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(var(--ga-text-color), 1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ga-btn-cancel:active {
+  transform: scale(0.97);
+}
+
+/* Deny button — warm red glass */
+.ga-btn-deny {
+  background: rgba(var(--ga-error), 0.2);
+  color: rgb(var(--ga-error));
+  border: 1px solid rgba(var(--ga-error), 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.ga-btn-deny:hover {
+  background: rgba(var(--ga-error), 0.35);
+  box-shadow: 0 4px 16px rgba(var(--ga-error), 0.2);
+}
+
+.ga-btn-deny:active {
+  transform: scale(0.97);
+}
+
+/* ─── Timer Progress Bar ─────────────────────────────── */
+.ga-timer-bar-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 0 0 var(--ga-border-radius) var(--ga-border-radius);
+}
+
+.ga-timer-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--ga-glass-color), 0.8),
+    rgba(var(--ga-glass-color-secondary), 0.8)
+  );
+  transform-origin: left center;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ─── Footer ─────────────────────────────────────────── */
+.ga-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8rem;
+  color: rgba(var(--ga-text-color), 0.45);
+}
+
+/* ─── Toast Mode ─────────────────────────────────────── */
+.ga-overlay.ga-toast {
+  pointer-events: none;
+  background: transparent;
+}
+
+.ga-overlay.ga-toast .ga-backdrop {
+  display: none;
+}
+
+.ga-overlay.ga-toast .ga-popup {
+  pointer-events: auto;
+  max-width: 360px;
+  padding: 16px 24px;
+  text-align: left;
+}
+
+.ga-overlay.ga-toast .ga-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  margin: 0 12px 0 0;
+  display: inline-flex;
+}
+
+.ga-overlay.ga-toast .ga-icon-svg {
+  width: 40px;
+  height: 40px;
+}
+
+.ga-overlay.ga-toast .ga-popup {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.ga-overlay.ga-toast .ga-toast-body {
+  flex: 1;
+}
+
+.ga-overlay.ga-toast .ga-title {
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+
+.ga-overlay.ga-toast .ga-content {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.ga-overlay.ga-toast .ga-actions {
+  margin-top: 0;
+  margin-left: 12px;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .ga-popup {
+    max-width: calc(100vw - 32px);
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .ga-title {
+    font-size: 1.25rem;
+  }
+
+  .ga-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ga-btn {
+    width: 100%;
+  }
+}
+
+/* ─── Reduced Motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ga-animated-bg,
+  .ga-popup::after,
+  .ga-backdrop::before,
+  .ga-backdrop::after {
+    animation: none !important;
+  }
+
+  .ga-btn-confirm::after {
+    animation: none !important;
+  }
+}
