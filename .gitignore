@@ -6,3 +6,4 @@ dist/
 
 # Private planning files
 BasePlan.md
+.npmrc
