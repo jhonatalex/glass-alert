@@ -12,6 +12,9 @@
   --ga-glass-opacity: 0.12;
   --ga-glass-color: 99, 102, 241;        /* indigo-500 RGB */
   --ga-glass-color-secondary: 139, 92, 246; /* violet-500 RGB */
+  --ga-confirm-color: var(--ga-glass-color);
+  --ga-cancel-color: 255, 255, 255;
+  --ga-deny-color: var(--ga-error);
   --ga-glass-border-opacity: 0.25;
   --ga-backdrop-blur: 8px;
   --ga-border-radius: 24px;
@@ -319,15 +322,15 @@
 .ga-btn-confirm {
   background: linear-gradient(
     135deg,
-    rgba(var(--ga-glass-color), 0.7) 0%,
-    rgba(var(--ga-glass-color-secondary), 0.6) 100%
+    rgba(var(--ga-confirm-color), 0.7) 0%,
+    rgba(var(--ga-confirm-color-secondary, var(--ga-confirm-color)), 0.6) 100%
   );
   color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow:
-    0 4px 16px rgba(var(--ga-glass-color), 0.3),
+    0 4px 16px rgba(var(--ga-confirm-color), 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
@@ -363,9 +366,9 @@
 
 /* Cancel button — subtle glass */
 .ga-btn-cancel {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--ga-cancel-color), 0.08);
   color: rgba(var(--ga-text-color), 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(var(--ga-cancel-color), 0.12);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -382,16 +385,16 @@
 
 /* Deny button — warm red glass */
 .ga-btn-deny {
-  background: rgba(var(--ga-error), 0.2);
-  color: rgb(var(--ga-error));
-  border: 1px solid rgba(var(--ga-error), 0.25);
+  background: rgba(var(--ga-deny-color), 0.2);
+  color: rgb(var(--ga-deny-color));
+  border: 1px solid rgba(var(--ga-deny-color), 0.25);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
 .ga-btn-deny:hover {
-  background: rgba(var(--ga-error), 0.35);
-  box-shadow: 0 4px 16px rgba(var(--ga-error), 0.2);
+  background: rgba(var(--ga-deny-color), 0.35);
+  box-shadow: 0 4px 16px rgba(var(--ga-deny-color), 0.2);
 }
 
 .ga-btn-deny:active {

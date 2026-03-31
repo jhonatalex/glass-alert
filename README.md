@@ -105,7 +105,11 @@ function MyComponent() {
 | `timer` | `number` | `0` | Auto-dismiss timer in ms. |
 | `glassBlur` | `number` | `20` | Blur intensity for the glass effect (px). |
 | `glassOpacity` | `number` | `0.12` | Opacity of the background (0-1). |
-| `glassColor` | `string` | `'#6366f1'` | Primary accent color. |
+| `glassColor` | `string` | `'#6366f1'` | Primary glass accent color. |
+| `glassColorSecondary` | `string` | `'#8b5cf6'` | Secondary color for gradients. |
+| `confirmButtonColor` | `string` | `'#6366f1'` | Custom color for confirm button. |
+| `cancelButtonColor` | `string` | `'#ffffff'` | Custom color for cancel button. |
+| `denyButtonColor` | `string` | `'#ef4444'` | Custom color for deny button. |
 | `animatedBackground`| `boolean` | `true` | Enable the dynamic background gradient. |
 
 ---

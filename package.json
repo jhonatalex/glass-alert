@@ -1,6 +1,6 @@
 {
   "name": "glass-alert-animation",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A beautiful glassmorphism alert/modal library with GSAP animations for React. Premium liquid glass style popups with animated icons, backgrounds, and smooth transitions.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

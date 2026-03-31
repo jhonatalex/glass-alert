@@ -8,23 +8,13 @@
  */
 import type { GlassAlertAnimation } from './types';
 
-let gsapInstance: any = null;
+import { gsap } from 'gsap';
 
-/** Lazy-load GSAP to avoid import errors when not installed yet */
-function getGsap(): any {
-  if (gsapInstance) return gsapInstance;
-  try {
-    gsapInstance = require('gsap');
-    return gsapInstance.gsap || gsapInstance.default || gsapInstance;
-  } catch {
-    return null;
-  }
+export function getGsap(): any {
+  return gsap;
 }
 
-/** Set GSAP instance if user provides it (for ESM environments) */
-export function setGsap(g: any) {
-  gsapInstance = g;
-}
+export function setGsap(g: any) {}
 
 // ─── Entrance Animations ────────────────────────────────
 
@@ -222,8 +212,6 @@ export function animateOut(
 // ─── Icon Animations ────────────────────────────────────
 
 export function animateIcon(iconEl: HTMLElement, iconType: string) {
-  const gsap = getGsap();
-  if (!gsap) return null;
 
   const tl = gsap.timeline({ delay: 0.3 });
 
@@ -429,8 +417,6 @@ export function animateIcon(iconEl: HTMLElement, iconType: string) {
 // ─── Background Animation ───────────────────────────────
 
 export function animateBackground(bgEl: HTMLElement, speed: number = 8) {
-  const gsap = getGsap();
-  if (!gsap) return null;
 
   return gsap.to(bgEl, {
     backgroundPosition: '200% 200%',
@@ -443,8 +429,6 @@ export function animateBackground(bgEl: HTMLElement, speed: number = 8) {
 // ─── Button Hover Animations ────────────────────────────
 
 export function animateButtonHover(btnEl: HTMLElement, enter: boolean) {
-  const gsap = getGsap();
-  if (!gsap) return;
 
   if (enter) {
     gsap.to(btnEl, {
@@ -466,11 +450,6 @@ export function animateButtonHover(btnEl: HTMLElement, enter: boolean) {
 // ─── Timer Progress Bar ─────────────────────────────────
 
 export function animateTimerBar(barEl: HTMLElement, duration: number, onComplete?: () => void) {
-  const gsap = getGsap();
-  if (!gsap) {
-    onComplete?.();
-    return null;
-  }
 
   return gsap.fromTo(
     barEl,

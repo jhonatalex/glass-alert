@@ -94,6 +94,17 @@ const App = () => {
           icon: 'success',
           useLottieIcons: false
         })}>Old GSAP Icon</button>
+        <button className="ga-btn ga-btn-confirm" style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }} onClick={() => fire({
+          title: 'Premium Emerald Glass',
+          text: 'Custom background and button colors while keeping the glass effect!',
+          icon: 'success',
+          glassColor: '#10b981',
+          glassColorSecondary: '#047857',
+          confirmButtonColor: '#f59e0b',
+          cancelButtonColor: '#ef4444',
+          showCancelButton: true,
+          confirmButtonText: 'Looks Great!',
+        })}>Emerald Custom</button>
       </div>
     </div>
   );

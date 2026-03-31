@@ -363,6 +363,10 @@
                 <h3>Slide Animation</h3>
                 <p>Smooth directional transitions.</p>
             </div>
+            <div class="demo-card" style="border-color: #10b981;" onclick="triggerDemo('emerald')">
+                <h3>Emerald Premium</h3>
+                <p>Custom background and amber buttons.</p>
+            </div>
         </div>
     </section>
 
@@ -531,6 +535,26 @@ if (result.isConfirmed) {
                         <td>false</td>
                     </tr>
                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>glassColor</code></td>
+                        <td>string</td>
+                        <td>'#6366f1'</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>glassColorSecondary</code></td>
+                        <td>string</td>
+                        <td>'#8b5cf6'</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>confirmButtonColor</code></td>
+                        <td>string</td>
+                        <td>'#6366f1'</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>cancelButtonColor</code></td>
+                        <td>string</td>
+                        <td>'#ffffff'</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
                         <td><code>timer</code></td>
                         <td>number (ms)</td>
                         <td>0</td>
@@ -599,6 +623,14 @@ if (result.isConfirmed) {
                 showCancel = true;
                 currentLottie = 'question';
                 iconColor = "#8b5cf6";
+            } else if (type === 'emerald') {
+                title = "Emerald Premium";
+                text = "Customizing background and buttons is easy!";
+                currentLottie = 'success';
+                iconColor = "#10b981";
+                popup.style.setProperty('--ga-glass-color', '16, 185, 129');
+                popup.style.setProperty('--ga-confirm-color', '245, 158, 11');
+                showCancel = true;
             }
 
             popup.innerHTML = `

@@ -17,6 +17,8 @@ import warningLottie from '../assets/lotties/warning.json';
 import infoLottie from '../assets/lotties/info.json';
 import questionLottie from '../assets/lotties/question.json';
 
+import { formatRgb } from '../core/utils';
+
 const defaultLotties: Record<string, object> = {
   success: successLottie,
   error: errorLottie,
@@ -133,11 +135,18 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
     '--ga-backdrop-blur': `${backdropBlur}px`,
     '--ga-glass-border-opacity': glassBorderOpacity,
     '--ga-bg-speed': `${backgroundAnimSpeed}s`,
-  } as React.CSSProperties;
+    '--ga-glass-color': formatRgb(glassColor || '#6366f1'),
+    '--ga-glass-color-secondary': formatRgb(glassColorSecondary || glassColor || '#8b5cf6'),
+  } as any;
 
-  if (glassColor) {
-    // Basic hex/rgb to rgb numbers would be better, but for now we rely on the user or default
-    // We'll stick to CSS variables if they were passed as strings
+  if (confirmButtonColor) {
+    glassVars['--ga-confirm-color'] = formatRgb(confirmButtonColor);
+  }
+  if (cancelButtonColor) {
+    glassVars['--ga-cancel-color'] = formatRgb(cancelButtonColor);
+  }
+  if (denyButtonColor) {
+    glassVars['--ga-deny-color'] = formatRgb(denyButtonColor);
   }
 
   const renderIcon = () => {
@@ -239,7 +248,7 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
             {showDenyButton && (
               <button
                 className={`ga-btn ga-btn-deny ${customClass?.denyButton || ''}`}
-                style={{ backgroundColor: denyButtonColor }}
+                style={denyButtonColor ? { '--ga-deny-color': formatRgb(denyButtonColor) } as any : {}}
                 onMouseEnter={(e) => animateButtonHover(e.currentTarget, true)}
                 onMouseLeave={(e) => animateButtonHover(e.currentTarget, false)}
                 onClick={() => handleClose('cancel', 'deny')}
@@ -250,7 +259,7 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
             {showCancelButton && (
               <button
                 className={`ga-btn ga-btn-cancel ${customClass?.cancelButton || ''}`}
-                style={{ backgroundColor: cancelButtonColor }}
+                style={cancelButtonColor ? { '--ga-cancel-color': formatRgb(cancelButtonColor) } as any : {}}
                 onMouseEnter={(e) => animateButtonHover(e.currentTarget, true)}
                 onMouseLeave={(e) => animateButtonHover(e.currentTarget, false)}
                 onClick={() => handleClose('cancel')}
@@ -261,7 +270,7 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
             {showConfirmButton && (
               <button
                 className={`ga-btn ga-btn-confirm ${customClass?.confirmButton || ''}`}
-                style={{ backgroundColor: confirmButtonColor }}
+                style={confirmButtonColor ? { '--ga-confirm-color': formatRgb(confirmButtonColor) } as any : {}}
                 onMouseEnter={(e) => animateButtonHover(e.currentTarget, true)}
                 onMouseLeave={(e) => animateButtonHover(e.currentTarget, false)}
                 onClick={() => handleClose('close')}
