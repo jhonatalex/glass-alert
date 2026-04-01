@@ -35,6 +35,7 @@ interface GlassAlertModalProps {
 export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, options, onResult }) => {
   const [shouldRender, setShouldRender] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [remoteLottie, setRemoteLottie] = useState<object | null>(null);
   
   const mergedOptions = useMemo(() => mergeOptions(options), [options]);
   const {
@@ -118,6 +119,20 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
   }, [shouldRender, isClosing, animation, icon, timer, timerProgressBar, mergedOptions, handleClose]);
 
   useEffect(() => {
+    if (typeof mergedOptions.lottie === 'string') {
+      fetch(mergedOptions.lottie)
+        .then(res => res.json())
+        .then(data => setRemoteLottie(data))
+        .catch(err => {
+          console.error('Error loading Lottie from URL:', err);
+          setRemoteLottie(null);
+        });
+    } else {
+      setRemoteLottie(null);
+    }
+  }, [mergedOptions.lottie]);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (allowEscapeKey && e.key === 'Escape' && isOpen && !isClosing) {
         handleClose('esc');
@@ -157,7 +172,7 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
     if (mergedOptions.lottie || isDefaultLottie) {
       const animationData = typeof mergedOptions.lottie === 'object'
         ? mergedOptions.lottie
-        : isDefaultLottie ? defaultLotties[icon!] : null;
+        : (typeof mergedOptions.lottie === 'string' ? remoteLottie : (isDefaultLottie ? defaultLotties[icon!] : null));
 
       if (animationData) {
         return (

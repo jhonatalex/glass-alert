@@ -78,11 +78,18 @@ export interface GlassAlertOptions extends GlassStyleOptions {
   toast?: boolean;
   
   // --- Lottie Icons ---
-  /** Lottie animation URL or imported JSON object */
+  /** 
+   * Custom Lottie animation. 
+   * Can be a JSON object (imported) or a URL string pointing to a JSON file.
+   * If provided, this overrides the default icon.
+   */
   lottie?: string | object;
   /** Whether the Lottie animation should play on loop. Default: false */
   lottieLoop?: boolean;
-  /** Whether to use bundled Lottie defaults for standard icons. Default: true */
+  /** 
+   * Whether to use the built-in premium Lottie icons for standard types 
+   * (success, error, warning, info, question). Default: true 
+   */
   useLottieIcons?: boolean;
   /** Auto-close timer in milliseconds */
   timer?: number;

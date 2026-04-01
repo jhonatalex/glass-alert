@@ -112,6 +112,31 @@ function MyComponent() {
 | `denyButtonColor` | `string` | `'#ef4444'` | Custom color for deny button. |
 | `isOpaque` | `boolean` | `false` | Enable high-contrast opaque background. |
 | `animatedBackground`| `boolean` | `true` | Enable the dynamic background gradient. |
+| `lottie` | `string \| object` | `undefined` | Custom Lottie JSON object or URL string. |
+| `lottieLoop` | `boolean` | `false` | Loop the Lottie animation. |
+| `useLottieIcons` | `boolean` | `true` | Use premium Lottie icons for standard types. |
+
+## 🎭 Custom Lottie Icons
+
+You can use any Lottie animation as an icon by passing a JSON object or a URL.
+
+```tsx
+// Using a URL
+fire({
+  title: 'Custom Icon',
+  text: 'This uses a remote Lottie animation.',
+  lottie: 'https://assets9.lottiefiles.com/packages/lf20_afwjh8re.json',
+  lottieLoop: true
+});
+
+// Using an imported JSON
+import myAnimation from './assets/animation.json';
+
+fire({
+  title: 'Local Lottie',
+  lottie: myAnimation
+});
+```
 
 ---
 

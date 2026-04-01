@@ -450,6 +450,14 @@ function MyComponent() {
 if (result.isConfirmed) {
   // Logic here
 }</code></pre>
+
+            <p style="margin-top: 40px; font-weight: 600;">Custom Lottie Icon</p>
+            <p style="font-size: 0.9rem; color: var(--text-dim);">Pass a URL or an imported JSON object to use your own animations.</p>
+            <pre><code class="language-jsx">fire({
+  title: 'Custom Animation',
+  lottie: 'https://assets9.lottiefiles.com/packages/lf20_afwjh8re.json',
+  lottieLoop: true
+});</code></pre>
         </div>
     </section>
 
@@ -567,6 +575,21 @@ if (result.isConfirmed) {
                         <td><code>isOpaque</code></td>
                         <td>boolean</td>
                         <td>false</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>lottie</code></td>
+                        <td>string | object</td>
+                        <td>undefined</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>lottieLoop</code></td>
+                        <td>boolean</td>
+                        <td>false</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>useLottieIcons</code></td>
+                        <td>boolean</td>
+                        <td>true</td>
                     </tr>
                 </tbody>
             </table>
