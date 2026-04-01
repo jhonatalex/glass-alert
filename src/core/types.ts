@@ -54,6 +54,8 @@ export interface GlassStyleOptions {
   animatedBackground?: boolean;
   /** Background animation speed in seconds. Default: 8 */
   backgroundAnimSpeed?: number;
+  /** Enable full opacity (high contrast) mode. Default: false */
+  isOpaque?: boolean;
 }
 
 /** Main options for GlassAlert.fire() */

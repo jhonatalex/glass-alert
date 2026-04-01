@@ -367,6 +367,10 @@
                 <h3>Emerald Premium</h3>
                 <p>Custom background and amber buttons.</p>
             </div>
+            <div class="demo-card" style="background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.2);" onclick="triggerDemo('opaque')">
+                <h3>High Contrast</h3>
+                <p>Opaque background for maximum readability.</p>
+            </div>
         </div>
     </section>
 
@@ -559,6 +563,11 @@ if (result.isConfirmed) {
                         <td>number (ms)</td>
                         <td>0</td>
                     </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>isOpaque</code></td>
+                        <td>boolean</td>
+                        <td>false</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -631,6 +640,12 @@ if (result.isConfirmed) {
                 popup.style.setProperty('--ga-glass-color', '16, 185, 129');
                 popup.style.setProperty('--ga-confirm-color', '245, 158, 11');
                 showCancel = true;
+            } else if (type === 'opaque') {
+                title = "Opaque Mode";
+                text = "Perfect for busy backgrounds where readability is key.";
+                currentLottie = 'info';
+                iconColor = "#6366f1";
+                popup.classList.add('ga-is-opaque');
             }
 
             popup.innerHTML = `

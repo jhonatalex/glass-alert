@@ -110,6 +110,7 @@ function MyComponent() {
 | `confirmButtonColor` | `string` | `'#6366f1'` | Custom color for confirm button. |
 | `cancelButtonColor` | `string` | `'#ffffff'` | Custom color for cancel button. |
 | `denyButtonColor` | `string` | `'#ef4444'` | Custom color for deny button. |
+| `isOpaque` | `boolean` | `false` | Enable high-contrast opaque background. |
 | `animatedBackground`| `boolean` | `true` | Enable the dynamic background gradient. |
 
 ---

@@ -31,6 +31,7 @@ export const defaultOptions: Required<
     | 'backdropBlur'
     | 'animatedBackground'
     | 'backgroundAnimSpeed'
+    | 'isOpaque'
   >
 > = {
   position: 'center',
@@ -66,6 +67,7 @@ export const defaultOptions: Required<
   backdropBlur: 8,
   animatedBackground: true,
   backgroundAnimSpeed: 8,
+  isOpaque: false,
 };
 
 /** Merge user options with defaults */
