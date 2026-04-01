@@ -20,7 +20,12 @@ export default {
       sourcemap: true,
     },
   ],
-  external: ['react', 'react-dom', 'react/jsx-runtime', 'gsap', '@gsap/react'],
+  external: ['react', 'react-dom', 'react/jsx-runtime', 'gsap', '@gsap/react', 'lottie-react'],
+  onwarn: (warning, warn) => {
+    // Ignore eval warnings from lottie-web
+    if (warning.code === 'EVAL') return;
+    warn(warning);
+  },
   plugins: [
     resolve(),
     commonjs(),

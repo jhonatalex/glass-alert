@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7] - 2026-04-01
+
+### Fixed
+- **Build optimization**: Made `lottie-react` an external dependency to prevent bundling `lottie-web` internals.
+  - Package size reduced from **752 kB → 77 kB** (90% smaller).
+  - Suppressed Rollup `eval` warning caused by `lottie-web`'s expression engine.
+
 ## [0.1.6] - 2026-04-01
 
 ### Added
