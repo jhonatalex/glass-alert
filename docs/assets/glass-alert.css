@@ -12,6 +12,9 @@
   --ga-glass-opacity: 0.12;
   --ga-glass-color: 99, 102, 241;        /* indigo-500 RGB */
   --ga-glass-color-secondary: 139, 92, 246; /* violet-500 RGB */
+  --ga-confirm-color: var(--ga-glass-color);
+  --ga-cancel-color: 255, 255, 255;
+  --ga-deny-color: var(--ga-error);
   --ga-glass-border-opacity: 0.25;
   --ga-backdrop-blur: 8px;
   --ga-border-radius: 24px;
@@ -187,6 +190,119 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
+/* ──────────────────────────────────────────────────────────
+ * Light Theme
+ * ────────────────────────────────────────────────────────── */
+.ga-overlay.ga-theme-light {
+  --ga-text-color: 0, 0, 0; /* Solid Black */
+  --ga-glass-opacity: 0.6;
+  --ga-glass-border-opacity: 0.25;
+  --ga-shadow-color: 0, 0, 0;
+}
+
+.ga-theme-light .ga-popup {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, var(--ga-glass-opacity)) 0%,
+    rgba(255, 255, 255, calc(var(--ga-glass-opacity) * 0.7)) 50%,
+    rgba(255, 255, 255, calc(var(--ga-glass-opacity) * 0.5)) 100%
+  );
+  border: 1px solid rgba(0, 0, 0, var(--ga-glass-border-opacity));
+  box-shadow:
+    0 8px 32px rgba(var(--ga-shadow-color), 0.12),
+    0 2px 8px rgba(var(--ga-shadow-color), 0.06);
+}
+
+.ga-theme-light .ga-title {
+  color: #000 !important;
+  text-shadow: 
+    0 0 2px rgba(255, 255, 255, 1), 
+    0 0 12px rgba(var(--ga-glass-color), 0.25);
+  font-weight: 800;
+}
+
+.ga-theme-light .ga-content {
+  color: #000 !important;
+  font-weight: 500;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.8), 0 0 8px rgba(var(--ga-glass-color), 0.1);
+}
+
+.ga-theme-light .ga-btn {
+  color: #000 !important;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.8), 0 0 8px rgba(var(--ga-glass-color), 0.15);
+  font-weight: 700;
+}
+
+/* Adjust confirm button in light mode to be more 'neon' and contrasty */
+/* High Intensity Buttons for Light Theme */
+.ga-theme-light .ga-btn-confirm {
+  background: rgba(var(--ga-confirm-color), 0.85) !important;
+  color: #000 !important;
+  border: 1px solid rgba(var(--ga-confirm-color), 1);
+  backdrop-filter: none; /* Reduce glass for intensity */
+  -webkit-backdrop-filter: none;
+  box-shadow: 
+    0 4px 15px rgba(var(--ga-confirm-color), 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.ga-theme-light .ga-btn-confirm:hover {
+  background: rgba(var(--ga-confirm-color), 1) !important;
+  box-shadow: 0 6px 20px rgba(var(--ga-confirm-color), 0.5);
+}
+
+.ga-theme-light .ga-btn-deny {
+  background: rgba(var(--ga-deny-color), 0.8) !important;
+  color: #000 !important;
+  border: 1px solid rgba(var(--ga-deny-color), 1);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.ga-theme-light .ga-btn-deny:hover {
+  background: rgba(var(--ga-deny-color), 1) !important;
+}
+
+.ga-theme-light .ga-btn {
+  text-shadow: 
+    0 0 3px #fff, 
+    0 0 8px #fff,
+    0 0 12px rgba(var(--ga-glass-color), 0.3);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.ga-theme-light .ga-popup.ga-is-opaque {
+  background: #ffffff !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ga-theme-light .ga-close-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+}
+
+.ga-theme-light .ga-btn-cancel {
+  background: rgba(0, 0, 0, 0.06);
+  color: #000 !important;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.ga-theme-light .ga-btn-cancel:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.ga-theme-light .ga-footer {
+  border-top-color: rgba(0, 0, 0, 0.08);
+  color: #000;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+
+
 /* Inner glass highlight (top light reflection) */
 .ga-popup::before {
   content: '';
@@ -331,15 +447,15 @@
 .ga-btn-confirm {
   background: linear-gradient(
     135deg,
-    rgba(var(--ga-glass-color), 0.7) 0%,
-    rgba(var(--ga-glass-color-secondary), 0.6) 100%
+    rgba(var(--ga-confirm-color), 0.7) 0%,
+    rgba(var(--ga-confirm-color-secondary, var(--ga-confirm-color)), 0.6) 100%
   );
   color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow:
-    0 4px 16px rgba(var(--ga-glass-color), 0.3),
+    0 4px 16px rgba(var(--ga-confirm-color), 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
@@ -375,9 +491,9 @@
 
 /* Cancel button — subtle glass */
 .ga-btn-cancel {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--ga-cancel-color), 0.08);
   color: rgba(var(--ga-text-color), 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(var(--ga-cancel-color), 0.12);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -394,16 +510,16 @@
 
 /* Deny button — warm red glass */
 .ga-btn-deny {
-  background: rgba(var(--ga-error), 0.2);
-  color: rgb(var(--ga-error));
-  border: 1px solid rgba(var(--ga-error), 0.25);
+  background: rgba(var(--ga-deny-color), 0.2);
+  color: rgb(var(--ga-deny-color));
+  border: 1px solid rgba(var(--ga-deny-color), 0.25);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
 .ga-btn-deny:hover {
-  background: rgba(var(--ga-error), 0.35);
-  box-shadow: 0 4px 16px rgba(var(--ga-error), 0.2);
+  background: rgba(var(--ga-deny-color), 0.35);
+  box-shadow: 0 4px 16px rgba(var(--ga-deny-color), 0.2);
 }
 
 .ga-btn-deny:active {
