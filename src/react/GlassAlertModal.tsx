@@ -45,7 +45,7 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
     denyButtonText, denyButtonColor, showCloseButton, allowOutsideClick,
     allowEscapeKey, reverseButtons, footer, customClass,
     glassBlur, glassOpacity, glassColor, glassColorSecondary, glassBorderOpacity,
-    backdropBlur, animatedBackground, backgroundAnimSpeed, isOpaque
+    backdropBlur, animatedBackground, backgroundAnimSpeed, isOpaque, theme
   } = mergedOptions;
 
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -204,6 +204,7 @@ export const GlassAlertModal: React.FC<GlassAlertModalProps> = ({ isOpen, option
     'ga-overlay',
     isOpen && !isClosing ? 'ga-visible' : '',
     `ga-pos-${position}`,
+    `ga-theme-${theme}`,
     toast ? 'ga-toast' : '',
     customClass?.container || ''
   ].join(' ');

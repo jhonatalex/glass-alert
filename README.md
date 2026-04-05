@@ -97,6 +97,7 @@ function MyComponent() {
 | Property | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `title` | `string` | `''` | Main title header. |
+| `theme` | `'light' \| 'dark'` | `'dark'` | Theme variant for the alert. |
 | `text` | `string` | `''` | Body text content. |
 | `html` | `ReactNode` | `undefined` | Custom HTML content (overrides text). |
 | `icon` | `string` | `undefined` | `success`, `error`, `warning`, `info`, `question`. |

@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.8] - 2026-04-05
+
+### Added
+- **Theme Support (Light & Dark)**: Added support for theme variants to adapt popups to different UI environments.
+  - New `theme` property (`'light' | 'dark'`). Defaults to `dark`.
+  - **Light Theme**: optimized with slate-800 text, higher glass opacity, and adjusted shadows for readability on light backgrounds.
+  - **Theme-aware Opaque Mode**: `isOpaque` now adapts to the theme (white for light, dark for dark).
+- **Demo Enhancement**: Added a theme switcher to the official showcase to test alerts in both modes.
+- **Improved Contrast**: Better shadow depth and border luminosity for light mode.
+
+
 ## [0.1.7] - 2026-04-01
 
 ### Fixed

@@ -38,6 +38,8 @@ export interface GlassAlertResult<T = any> {
 
 /** Glass-specific style options */
 export interface GlassStyleOptions {
+  /** Theme variant. Default: 'dark' */
+  theme?: 'light' | 'dark';
   /** Blur intensity for the glass effect (px). Default: 20 */
   glassBlur?: number;
   /** Opacity of the glass background (0-1). Default: 0.15 */

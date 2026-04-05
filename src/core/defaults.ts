@@ -8,6 +8,7 @@ export const defaultOptions: Required<
     | 'toast'
     | 'timer'
     | 'timerProgressBar'
+    | 'theme'
     | 'showConfirmButton'
     | 'confirmButtonText'
     | 'confirmButtonColor'
@@ -39,6 +40,7 @@ export const defaultOptions: Required<
   toast: false,
   timer: 0,
   timerProgressBar: false,
+  theme: 'dark',
 
   showConfirmButton: true,
   confirmButtonText: 'OK',
