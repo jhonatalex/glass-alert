@@ -24,6 +24,18 @@
             --bg-dark: #05050f;
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --nav-bg: rgba(255, 255, 255, 0.02);
+        }
+
+        body.light-theme {
+            --bg-dark: #f8fafc;
+            --text-main: #0f172a;
+            --text-dim: #475569;
+            --card-bg: rgba(0, 0, 0, 0.03);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(255, 255, 255, 0.8);
         }
 
         * {
@@ -77,12 +89,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.02);
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid var(--card-border);
         }
 
         .logo-nav {
@@ -91,7 +103,7 @@
             gap: 12px;
             font-weight: 700;
             font-size: 1.2rem;
-            color: #fff;
+            color: var(--text-main);
             text-decoration: none;
         }
 
@@ -135,7 +147,7 @@
             font-size: 3.8rem; /* Reduced from 4.5rem */
             font-weight: 800;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            background: linear-gradient(135deg, var(--text-main) 0%, var(--text-dim) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -2px;
@@ -178,8 +190,8 @@
         }
 
         .demo-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 30px;
             border-radius: 24px;
             text-align: center;
@@ -254,6 +266,34 @@
             font-size: 0.9rem;
         }
 
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+
+        .light-theme .theme-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.05);
+            color: #000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         /* --- Utils --- */
         .btn {
             padding: 14px 32px;
@@ -322,6 +362,7 @@
             <a href="#install">Install</a>
             <a href="#api">API</a>
             <a href="https://github.com/jhonatalex/glass-alert" target="_blank">GitHub</a>
+            <button class="theme-toggle" onclick="togglePageTheme()" id="theme-icon">🌙</button>
         </div>
     </nav>
 
@@ -370,6 +411,14 @@
             <div class="demo-card" style="background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.2);" onclick="triggerDemo('opaque')">
                 <h3>High Contrast</h3>
                 <p>Opaque background for maximum readability.</p>
+            </div>
+            <div class="demo-card" style="background: rgba(255,255,255,0.5); border-color: rgba(0,0,0,0.1); color: #000;" onclick="triggerDemo('light')">
+                <h3>Light Theme ✨</h3>
+                <p>Frosted glass with black text and neon glow.</p>
+            </div>
+            <div class="demo-card" style="background: #fff; border-color: rgba(0,0,0,0.1); color: #000;" onclick="triggerDemo('light-opaque')">
+                <h3>Light Opaque</h3>
+                <p>Solid white background with black text.</p>
             </div>
         </div>
     </section>
@@ -527,6 +576,11 @@ if (result.isConfirmed) {
                         <td>''</td>
                     </tr>
                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
+                        <td><code>theme</code></td>
+                        <td>'light' | 'dark'</td>
+                        <td>'dark'</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); height: 50px;">
                         <td><code>icon</code></td>
                         <td>success | error | warning | info | question</td>
                         <td>undefined</td>
@@ -612,10 +666,35 @@ if (result.isConfirmed) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
     <script>
+        // Global theme state for documentation page
+        let isLightTheme = false;
+        
+        function togglePageTheme() {
+            isLightTheme = !isLightTheme;
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (isLightTheme) {
+                body.classList.add('light-theme');
+                icon.innerText = '☀️';
+                gsap.to(body, { backgroundColor: '#f8fafc', color: '#0f172a', duration: 0.5 });
+            } else {
+                body.classList.remove('light-theme');
+                icon.innerText = '🌙';
+                gsap.to(body, { backgroundColor: '#05050f', color: '#f8fafc', duration: 0.5 });
+            }
+        }
+
         // Simple Mock of GlassAlert for local demo without needing full React bundle
         function triggerDemo(type) {
             const overlay = document.createElement('div');
             overlay.className = 'ga-overlay ga-visible';
+            
+            // Determine alert theme based on type or global state
+            const isAlertLight = type === 'light' || type === 'light-opaque' || isLightTheme;
+            const themeClass = isAlertLight ? 'ga-theme-light' : 'ga-theme-dark';
+            overlay.classList.add(themeClass);
+
             if (type === 'toast') overlay.classList.add('ga-toast', 'ga-pos-top-end');
 
             const backdrop = document.createElement('div');
@@ -624,6 +703,7 @@ if (result.isConfirmed) {
 
             const popup = document.createElement('div');
             popup.className = 'ga-popup ga-visible';
+            if (type === 'opaque' || type === 'light-opaque') popup.classList.add('ga-is-opaque');
 
             // Customizations based on type
             let title = "Success!";
@@ -646,15 +726,15 @@ if (result.isConfirmed) {
                 title = "Ultra Blur";
                 text = "This one uses 40px blur intensity.";
                 popup.style.setProperty('--ga-glass-blur', '40px');
-                popup.style.setProperty('--ga-glass-opacity', '0.25');
+                popup.style.setProperty('--ga-glass-opacity', isAlertLight ? '0.6' : '0.25');
                 currentLottie = 'info';
                 iconColor = "#3b82f6";
-            } else if (type === 'question' || type === 'liquid') {
-                title = type === 'liquid' ? "Liquid Animation" : "Are you sure?";
-                text = "Everything looks better with glassmorphism.";
+            } else if (type === 'question' || type === 'liquid' || type === 'light') {
+                title = type === 'liquid' ? "Liquid Animation" : (type === 'light' ? "Light Theme ✨" : "Are you sure?");
+                text = isAlertLight ? "Highest contrast with pure black text and neon glow." : "Everything looks better with glassmorphism.";
                 showCancel = true;
-                currentLottie = 'question';
-                iconColor = "#8b5cf6";
+                currentLottie = type === 'light' ? 'success' : (type === 'question' ? 'question' : 'question');
+                iconColor = isAlertLight ? "#6366f1" : "#8b5cf6";
             } else if (type === 'emerald') {
                 title = "Emerald Premium";
                 text = "Customizing background and buttons is easy!";
@@ -663,16 +743,16 @@ if (result.isConfirmed) {
                 popup.style.setProperty('--ga-glass-color', '16, 185, 129');
                 popup.style.setProperty('--ga-confirm-color', '245, 158, 11');
                 showCancel = true;
-            } else if (type === 'opaque') {
+            } else if (type === 'opaque' || type === 'light-opaque') {
                 title = "Opaque Mode";
                 text = "Perfect for busy backgrounds where readability is key.";
                 currentLottie = 'info';
                 iconColor = "#6366f1";
-                popup.classList.add('ga-is-opaque');
             }
 
             popup.innerHTML = `
-                <div class="ga-icon-wrapper" id="lottie-container" style="color: ${iconColor};"></div>
+                ${isAlertLight ? '' : '<div class="ga-icon-wrapper" id="lottie-container" style="color: '+iconColor+';"></div>'}
+                ${isAlertLight ? '<div class="ga-icon-wrapper" id="lottie-container" style="color: '+iconColor+';"></div>' : ''}
                 <div class="ga-toast-body">
                     <h2 class="ga-title">${title}</h2>
                     <div class="ga-content"><p>${text}</p></div>
@@ -710,10 +790,11 @@ if (result.isConfirmed) {
             );
 
             window.closeAlert = () => {
-                gsap.to(popup, { scale: 0.9, opacity: 0, duration: 0.2 });
-                gsap.to(overlay, { opacity: 0, duration: 0.3, onComplete: () => {
-                   document.body.removeChild(overlay);
+                const tl = gsap.timeline({ onComplete: () => {
+                    if (document.body.contains(overlay)) document.body.removeChild(overlay);
                 }});
+                tl.to(popup, { scale: 0.9, opacity: 0, duration: 0.2 });
+                tl.to(overlay, { opacity: 0, duration: 0.2 }, "-=0.1");
             }
 
             if (type === 'toast') {
