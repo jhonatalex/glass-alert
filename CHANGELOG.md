@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.9] - 2026-04-05
+
+### Fixed
+- **Light Theme Contrast**: Optimized text colors for the light theme to ensure maximum readability.
+  - Text now automatically switches to black (solid black) when using `theme: 'light'`.
+  - Added a **"white glow" contrast shadow** to black text in light mode for better separation from glass backgrounds.
+  - Fixed button text colors in light mode which remained white in previous versions.
+- **CSS Variable System**: Refactored the internal variable system to make themes more robust and prevent inheritance issues in third-party projects.
+
 ## [0.1.8] - 2026-04-05
 
 ### Added
